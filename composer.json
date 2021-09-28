@@ -1,0 +1,21 @@
+{
+  "name": "rusadrako/shop",
+  "version": "0.1.0",
+  "description": "shop",
+  "license": "GPL-3.0-only",
+  "authors": [
+    {
+      "name": "Leonid Petukhov",
+      "email": "f182@rambler.ru"
+    }
+  ],
+  "type": "project",
+  "minimum-stability": "stable",
+  "require": {
+    "elbrus/framework": "^0.3.3",
+    "rusadrako/model_obj": "^0.3.2",
+    "rusadrako/router": "^0.1.0",
+    "smarty/smarty": "^3.1"
+  },
+  "repositories": {}
+}
