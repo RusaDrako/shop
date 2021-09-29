@@ -26,19 +26,21 @@
 
 <body class="body_bg" style="min-width: 320px;">
 {* }	<div class="container-fluid" style="max-width: 1600px; background: #fff;">{ *}
-	<div class="container px-2" style="background: #fff;">
-		<div class="row py-2 mx-0 mb-2" style="background: #def;">
-			<div class="col-12 col-md-2">
-				<a href="/"><img src="/img/logo-project.png" style="max-height: 50px; max-width: 100%;"/></a>
+	<div class="container px-3" style="background: #def;">
+			<div class="row">
+				<div class="col-12 col-md-2">
+					<a href="/"><img src="/img/logo-project.png" style="max-height: 50px; max-width: 100%;"/></a>
+				</div>
+				<div class="col-12 col-md pt-1">
+					<h3>Shop</h3>
+				</div>
+				<div class="col-12 col-md-1 pt-1">
+					<a class="btn btn-success" href="/basket/">
+						<i class="fa fa-shopping-basket" aria-hidden="true"></i>
+					</a>
+				</div>
 			</div>
-			<div class="col-12 col-md pt-1">
-				<h3>Shop</h3>
-			</div>
-			<div class="col-12 col-md-1 pt-1">
-				<a class="btn btn-success border" href="/basket/">
-					<i class="fa fa-shopping-basket" aria-hidden="true"></i>
-				</a>
-			</div>
-		</div>
+	</div>
+	<div class="container px-3 py-4 border">
 
 <!-- {"`$smarty.current_dir`/`$smarty.template`"|tmp_dir} end -->

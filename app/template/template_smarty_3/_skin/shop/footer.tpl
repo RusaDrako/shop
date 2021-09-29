@@ -1,17 +1,15 @@
 <!-- {"`$smarty.current_dir`/`$smarty.template`"|tmp_dir} -->
-		<div class="container-fluid m-0 mt-2" style="max-width: 1600px; background: #ff0;">
+	</div>
+	<div class="container px-3 py-2" style="background: #8f8;">
 			<div class="row">
-				<div class="col">
-					footer
+				<div class="col-3">
 				</div>
 				<div class="col text-center">
-					shop (c) 2021
+					<a href="https://github.com/RusaDrako/shop">shop</a> (c) 2021
 				</div>
-				<div class="col text-right">
-					Test
+				<div class="col-3 text-right">
 				</div>
 			</div>
-		</div>
 	</div>
 </body>
 
