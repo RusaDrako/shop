@@ -31,6 +31,7 @@ class factory extends \RD_Obj_Factory {
 	 */
 	final function selection_object($alias, ...$arg) {
 		switch ($alias) {
+			case 'shop\basket':      # Корзина
 			case 'shop\employee':    # Клиенты
 			case 'shop\goods':       # Товары
 				$class_data_name = "\\app\\model\\{$alias}\\data";

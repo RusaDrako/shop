@@ -6,7 +6,6 @@
 	</div>
 </div>
 <div class="row p-2">
-	{for $foo=1 to 5}
 	{foreach from=$list->get_array() item=v key=k}
 		<div class="col-3 p-1">
 			<div class="border border-success m-0 h-100">
@@ -28,9 +27,9 @@
 						<span class="p-2 bg-warning">{$v->COST} руб.</span>
 					</div>
 					<div class="col-4 p-0 text-right">
-						<span class="btn btn-success">
+						<a class="btn btn-success" href="/basket/add/{$v->ID}">
 							<i class="fa fa-shopping-basket" aria-hidden="true"></i>
-						</span>
+						</a>
 					</div>
 				{else}
 					<div class="col p-0 py-2 text-center bg-danger">
@@ -41,6 +40,5 @@
 			</div>
 		</div>
 	{/foreach}
-	{/for}
 </div>
 <!-- {"`$smarty.current_dir`/`$smarty.template`"|tmp_dir} end -->

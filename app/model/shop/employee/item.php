@@ -89,10 +89,10 @@ class item extends \RD_Obj_Item {
 
 
 
-	/* * * /
-	public function getItem() {
-		$item = \factory::call()->getObj($table_name)->getByKey($this->KEY);
-		return $item;
+	/** */
+	public function getAssociatedBasketList() {
+		$list = \factory::call()->getObj('shop\basket')->getBasketListEmployeeId($this->ID);
+		return $list;
 	}
 
 

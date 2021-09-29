@@ -30,7 +30,7 @@ class item extends \RD_Obj_Item {
 			'goods_description'          => 'DESCRIPTION',          # Описание
 			'goods_price'                => 'PRICE',                # Стоймость
 			'goods_discount'             => 'DISCOUNT',             # Скидка
-			'goods_available_quantity'   => 'AVAILABLE_QUANTITY',   # Доступное кол-во для продажи
+			'goods_available_quantity'   => 'AVAILABLE_QUANTITY',   # Доступное кол-во для продажи (-1 - неограниченное кол-во)
 			'goods_created'              => 'CREATED',              # Дата создания
 		];
 
