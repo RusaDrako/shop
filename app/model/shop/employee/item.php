@@ -89,7 +89,7 @@ class item extends \RD_Obj_Item {
 
 
 
-	/** */
+	/** Возвращает связанный спиок корзины */
 	public function getAssociatedBasketList() {
 		$list = \factory::call()->getObj('shop\basket')->getBasketListEmployeeId($this->ID);
 		return $list;

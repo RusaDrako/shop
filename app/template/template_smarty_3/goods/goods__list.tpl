@@ -1,10 +1,6 @@
 <!-- {"`$smarty.current_dir`/`$smarty.template`"|tmp_dir} -->
-{print_info data=$list}
-<div class="row">
-	<div class="col">
-		<h4>Товар</h4>
-	</div>
-</div>
+{*print_info data=$list*}
+
 <div class="row p-2">
 	{foreach from=$list->get_array() item=v key=k}
 		<div class="col-3 p-1">

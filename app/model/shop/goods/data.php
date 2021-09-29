@@ -15,9 +15,9 @@ class data extends \RD_Obj_Data {
 
 
 
-	/* * * /
-	public function getList($where) {
-		$sql = "SELECT :col: FROM :tab: WHERE {$where}";
+	/** Возвращает список товаров по ID раздела */
+	public function getGoodsListSectionId($section_id) {
+		$sql = "SELECT :col: FROM :tab: WHERE section_id = {$section_id}";
 		$data = $this->select($sql);
 		return $data;
 	}

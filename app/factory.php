@@ -34,6 +34,7 @@ class factory extends \RD_Obj_Factory {
 			case 'shop\basket':      # Корзина
 			case 'shop\employee':    # Клиенты
 			case 'shop\goods':       # Товары
+			case 'shop\section':     # Разделы
 				$class_data_name = "\\app\\model\\{$alias}\\data";
 				$class_item_name = "\\app\\model\\{$alias}\\item";
 				$class = new $class_data_name($this->getDB('db_shop'), $class_item_name);

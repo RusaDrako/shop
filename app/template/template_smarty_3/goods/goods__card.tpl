@@ -1,5 +1,10 @@
 <!-- {"`$smarty.current_dir`/`$smarty.template`"|tmp_dir} -->
 {print_info data=$card}
+{print_info data=$section_array}
+
+{foreach from=$section_array item=v key=k}
+	/ <a href="/section/{$v->ID}">{$v->TITLE}</a>
+{/foreach}
 <div class="row">
 	<div class="col">
 		<h4>{$card->TITLE} ({$card->getKey()})</h4>

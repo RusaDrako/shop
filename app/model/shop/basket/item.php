@@ -121,7 +121,7 @@ class item extends \RD_Obj_Item {
 
 	private $_employee_item = false;
 
-	/** Возвращает связанного клиента */
+	/** Возвращает связанный элемент клиента */
 	public function getAssociatedEmployeeItem() {
 		if ($this->_employee_item === false) {
 			$this->_employee_item = \factory::call()->getObj('shop\employee')->getByKey($this->EMPLOYEE_ID);
@@ -133,7 +133,7 @@ class item extends \RD_Obj_Item {
 
 	private $_goods_item = false;
 
-	/** Возвращает связанный товар */
+	/** Возвращает связанный элемент товара */
 	public function getAssociatedGoodsItem() {
 		if ($this->_goods_item === false) {
 			$this->_goods_item = \factory::call()->getObj('shop\goods')->getByKey($this->GOODS_ID);

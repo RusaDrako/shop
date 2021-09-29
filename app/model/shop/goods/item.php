@@ -25,7 +25,7 @@ class item extends \RD_Obj_Item {
 		# Основные свойства объекта (соответствуют столбцам таблицы)
 		$column = [
 			'id_goods'                   => 'ID',                   # ID записи
-//			'section_id'                 => 'SECTION_ID',           # ID раздела
+			'section_id'                 => 'SECTION_ID',           # ID раздела
 			'goods_title'                => 'TITLE',                # Заголовок
 			'goods_description'          => 'DESCRIPTION',          # Описание
 			'goods_price'                => 'PRICE',                # Стоймость
@@ -91,16 +91,20 @@ class item extends \RD_Obj_Item {
 	public function save() {
 		$this->setProp('UPDATED',   date('Y-m-d H:i:s'));
 		parent::save();
-	}
+	}/**/
 
 
 
 
 
-	/* * * /
-	public function getItem() {
-		$item = \factory::call()->getObj($table_name)->getByKey($this->KEY);
-		return $item;
+	private $_section_item = false;
+
+	/** Возвращает связанный элемент раздела */
+	public function getAssociatedSectionItem() {
+		if ($this->_section_item === false) {
+			$this->_section_item = \factory::call()->getObj('shop\section')->getByKey($this->SECTION_ID);
+		}
+		return $this->_section_item;
 	}
 
 
