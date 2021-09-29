@@ -24,12 +24,14 @@ class item extends \RD_Obj_Item {
 
 		# Основные свойства объекта (соответствуют столбцам таблицы)
 		$column = [
-			'id_goods'            => 'ID',            # ID записи
-//			'section_id'          => 'SECTION_ID',    # ID раздела
-			'goods_title'         => 'TITLE',         # Заголовок
-			'goods_description'   => 'DESCRIPTION',   # Описание
-			'goods_price'         => 'PRICE',         # Стоймость
-			'goods_created'       => 'CREATED',       # Дата создания
+			'id_goods'                   => 'ID',                   # ID записи
+//			'section_id'                 => 'SECTION_ID',           # ID раздела
+			'goods_title'                => 'TITLE',                # Заголовок
+			'goods_description'          => 'DESCRIPTION',          # Описание
+			'goods_price'                => 'PRICE',                # Стоймость
+			'goods_discount'             => 'DISCOUNT',             # Скидка
+			'goods_available_quantity'   => 'AVAILABLE_QUANTITY',   # Доступное кол-во для продажи
+			'goods_created'              => 'CREATED',              # Дата создания
 		];
 
 		foreach ($column as $k => $v) {
@@ -45,8 +47,14 @@ class item extends \RD_Obj_Item {
 		}/**/
 
 		# Генерируемые свойства объекта
-/*		$function = [
-			'FUNCTIOB_NAME'     => function() {return null;},
+		$function = [
+			'IMG'         => function() {return '/img/box.png';},
+			'AVAILABLE'   => function() {return $this->AVAILABLE_QUANTITY ? 1 : 0;},
+			'COST'        => function() {
+				return $this->DISCOUNT > 0 && $this->DISCOUNT < 100
+						? number_format($this->PRICE * (100 - $this->DISCOUNT) / 100, 2)
+						: $this->PRICE;
+			},
 		];
 		foreach ($function as $k => $v) {
 			$this->set_gen_data($k, $v);
