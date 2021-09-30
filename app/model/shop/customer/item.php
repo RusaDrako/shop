@@ -1,5 +1,5 @@
 <?php
-namespace app\model\shop\employee;
+namespace app\model\shop\customer;
 
 /**
  * @author Петухов Леонид <l.petuhov@okonti.ru>
@@ -20,16 +20,16 @@ class item extends \RD_Obj_Item {
 	protected function setting() {
 
 		# Ключевое поле объекта
-		$this->set_column_id('id_employee');   # Ключевое поле
+		$this->set_column_id('id_customer');   # Ключевое поле
 
 		# Основные свойства объекта (соответствуют столбцам таблицы)
 		$column = [
-			'id_employee'         => 'ID',         # ID записи
-			'employee_login'      => 'TITLE',      # Логин
-			'employee_password'   => 'PASSWORD',   # Пароль
-			'employee_email'      => 'EMAIL',      # Email
-			'employee_token'      => 'TOKEN',      # Токен логирования
-			'employee_created'    => 'CREATED',    # Дата создания
+			'id_customer'         => 'ID',         # ID записи
+			'customer_login'      => 'TITLE',      # Логин
+			'customer_password'   => 'PASSWORD',   # Пароль
+			'customer_email'      => 'EMAIL',      # Email
+			'customer_token'      => 'TOKEN',      # Токен логирования
+			'customer_created'    => 'CREATED',    # Дата создания
 		];
 
 		foreach ($column as $k => $v) {
@@ -91,7 +91,7 @@ class item extends \RD_Obj_Item {
 
 	/** Возвращает связанный спиок корзины */
 	public function getAssociatedBasketList() {
-		$list = \factory::call()->getObj('shop\basket')->getBasketListEmployeeId($this->ID);
+		$list = \factory::call()->getObj('shop\basket')->getBasketListCustomerId($this->ID);
 		return $list;
 	}
 

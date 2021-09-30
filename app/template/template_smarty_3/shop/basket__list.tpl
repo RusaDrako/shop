@@ -28,7 +28,7 @@
 					<i class="fa fa-minus" aria-hidden="true"></i>
 				</a>
 				<span class="border border-success py-1 px-2">
-					{$v->COUNT}
+					{$v->QUANTITY}
 				</span>
 				<a class="btn btn-success" href="/basket/add/{$goods_item->ID}/1">
 					<i class="fa fa-plus" aria-hidden="true"></i>

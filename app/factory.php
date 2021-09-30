@@ -32,7 +32,7 @@ class factory extends \RD_Obj_Factory {
 	final function selection_object($alias, ...$arg) {
 		switch ($alias) {
 			case 'shop\basket':      # Корзина
-			case 'shop\employee':    # Клиенты
+			case 'shop\customer':    # Клиенты
 			case 'shop\goods':       # Товары
 			case 'shop\section':     # Разделы
 				$class_data_name = "\\app\\model\\{$alias}\\data";
@@ -68,7 +68,7 @@ class factory extends \RD_Obj_Factory {
 
 	/** Возвращает текущего клиента */
 	public function getUser() {
-		return $this->getObj('shop\employee')->getByKey(1);
+		return $this->getObj('shop\customer')->getByKey(1);
 /*		if (!array_key_exists($alias, $this->obj_db)) {
 			if (!array_key_exists($alias, $this->db_set)) {
 				throw new \Exception("Вызов неопределённого драйвера БД: " . \get_called_class() . "->{$alias}");

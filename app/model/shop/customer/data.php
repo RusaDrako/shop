@@ -1,5 +1,5 @@
 <?php
-namespace app\model\shop\employee;
+namespace app\model\shop\customer;
 
 /**
  * @author Петухов Леонид <l.petuhov@okonti.ru>
@@ -10,7 +10,7 @@ class data extends \RD_Obj_Data {
 
 	/** */
 	protected function setting() {
-		$this->table_name   = 'employee';
+		$this->table_name   = 'customer';
 	}
 
 

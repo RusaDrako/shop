@@ -26,10 +26,10 @@ class item extends \RD_Obj_Item {
 		$column = [
 			'id_goods'                   => 'ID',                   # ID записи
 			'section_id'                 => 'SECTION_ID',           # ID раздела
-			'goods_title'                => 'TITLE',                # Заголовок
+			'goods_title'                => 'TITLE',                # Наименование
 			'goods_description'          => 'DESCRIPTION',          # Описание
-			'goods_price'                => 'PRICE',                # Стоймость
-			'goods_discount'             => 'DISCOUNT',             # Скидка
+			'goods_price'                => 'PRICE',                # Стоимость
+			'goods_discount'             => 'DISCOUNT',          # Скидка
 			'goods_available_quantity'   => 'AVAILABLE_QUANTITY',   # Доступное кол-во для продажи (-1 - неограниченное кол-во)
 			'goods_created'              => 'CREATED',              # Дата создания
 		];

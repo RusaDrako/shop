@@ -25,9 +25,9 @@ class item extends \RD_Obj_Item {
 		# Основные свойства объекта (соответствуют столбцам таблицы)
 		$column = [
 			'id_basket'        => 'ID',            # ID записи
-			'employee_id'      => 'EMPLOYEE_ID',   # ID клиента
+			'customer_id'      => 'CUSTOMER_ID',   # ID клиента
 			'goods_id'         => 'GOODS_ID',      # ID товара
-			'basket_count'     => 'COUNT',         # Кол-во
+			'basket_quantity'  => 'QUANTITY',      # Кол-во
 			'basket_created'   => 'CREATED',       # Добавлен
 			'basket_deleted'   => 'DELETED',       # Удалён
 		];
@@ -48,7 +48,7 @@ class item extends \RD_Obj_Item {
 		$function = [
 			'COST'     => function() {
 				$goods_item = $this->getAssociatedGoodsItem();
-				return $goods_item->COST * $this->COUNT;
+				return $goods_item->COST * $this->QUANTITY;
 			},
 		];
 		foreach ($function as $k => $v) {
@@ -92,11 +92,11 @@ class item extends \RD_Obj_Item {
 
 	/** Добавляет заданное единиц товара */
 	public function addGoodsOne($add_count) {
-		$this->setProp('COUNT', $this->COUNT + $add_count);
+		$this->setProp('QUANTITY', $this->QUANTITY + $add_count);
 		$goods_item = $this->getAssociatedGoodsItem();
-		if ($this->COUNT > $goods_item->AVAILABLE_QUANTITY
+		if ($this->QUANTITY > $goods_item->AVAILABLE_QUANTITY
 				&& $goods_item->AVAILABLE_QUANTITY >= 0) {
-			$this->setProp('COUNT', $goods_item->AVAILABLE_QUANTITY);
+			$this->setProp('QUANTITY', $goods_item->AVAILABLE_QUANTITY);
 		}
 	}
 
@@ -104,9 +104,9 @@ class item extends \RD_Obj_Item {
 
 	/** Удаляет заданное единиц товара */
 	public function removeGoodsOne(int $remote_count) {
-		$this->setProp('COUNT', $this->COUNT - $remote_count);
-		if ($this->COUNT < 0) {
-			$this->setProp('COUNT', 0);
+		$this->setProp('QUANTITY', $this->QUANTITY - $remote_count);
+		if ($this->QUANTITY < 0) {
+			$this->setProp('QUANTITY', 0);
 		}
 	}
 
@@ -119,14 +119,14 @@ class item extends \RD_Obj_Item {
 
 
 
-	private $_employee_item = false;
+	private $_customer_item = false;
 
 	/** Возвращает связанный элемент клиента */
-	public function getAssociatedEmployeeItem() {
-		if ($this->_employee_item === false) {
-			$this->_employee_item = \factory::call()->getObj('shop\employee')->getByKey($this->EMPLOYEE_ID);
+	public function getAssociatedCustomerItem() {
+		if ($this->_customer_item === false) {
+			$this->_customer_item = \factory::call()->getObj('shop\customer')->getByKey($this->CUSTOMER_ID);
 		}
-		return $this->_employee_item;
+		return $this->_customer_item;
 	}
 
 
