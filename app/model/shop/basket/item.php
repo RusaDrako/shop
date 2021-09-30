@@ -28,8 +28,8 @@ class item extends \RD_Obj_Item {
 			'customer_id'      => 'CUSTOMER_ID',   # ID клиента
 			'goods_id'         => 'GOODS_ID',      # ID товара
 			'basket_quantity'  => 'QUANTITY',      # Кол-во
-			'basket_created'   => 'CREATED',       # Добавлен
-			'basket_deleted'   => 'DELETED',       # Удалён
+			'basket_created'   => 'CREATED',       # Дата создания
+			'basket_deleted'   => 'DELETED',       # Дата удаления
 		];
 
 		foreach ($column as $k => $v) {
@@ -112,7 +112,7 @@ class item extends \RD_Obj_Item {
 
 
 
-	/** Ставит маркер удаления позиции */
+	/** Ставит маркер удаления */
 	public function setDeletedBasket() {
 		$this->setProp('DELETED', date('Y-m-d H:I:s'));
 	}/**/

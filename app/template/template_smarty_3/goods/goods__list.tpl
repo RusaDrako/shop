@@ -7,14 +7,14 @@
 			<div class="border border-success m-0 h-100">
 				<div class="row p-0 mx-0 my-2">
 					<div class="col p-0 text-center">
-						<a href="/shop/goods/{$v->ID}">
+						<a href="/goods/{$v->ID}">
 							<img class="border border-warning" src="{$v->IMG}" style="max-width: 100%; max-height: 200px;"/>
 						</a>
 					</div>
 				</div>
 				<div class="row p-0 m-2">
 					<div class="col p-0">
-						({$v->getKey()}) <a href="/shop/goods/{$v->ID}">{$v->TITLE}</a>
+						({$v->getKey()}) <a href="/goods/{$v->ID}">{$v->TITLE}</a>
 					</div>
 				</div>
 				<div class="row p-0 m-0">

@@ -12,12 +12,12 @@
 			{$k+1}
 		</div>
 		<div class="col-1 px-0 py-1">
-			<a href="/shop/goods/{$goods_item->ID}">
+			<a href="/goods/{$goods_item->ID}">
 				<img class="border border-warning" src="{$goods_item->IMG}" style="max-width: 100%; max-height: 60px;"/>
 			</a>
 		</div>
 		<div class="col py-2">
-			<a href="/shop/goods/{$goods_item->ID}">{$goods_item->TITLE}</a> ({$goods_item->getKey()})
+			<a href="/goods/{$goods_item->ID}">{$goods_item->TITLE}</a> ({$goods_item->getKey()})
 		</div>
 		<div class="col-2 pt-2 text-center">
 			{$goods_item->COST} руб.
