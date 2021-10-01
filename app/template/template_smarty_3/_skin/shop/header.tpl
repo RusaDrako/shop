@@ -45,6 +45,6 @@
 				</div>
 			</div>
 	</div>
-	<div class="container px-3 py-4 border">
+	<div class="container px-3 py-4 border mb-4">
 
 <!-- {"`$smarty.current_dir`/`$smarty.template`"|tmp_dir} end -->

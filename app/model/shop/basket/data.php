@@ -16,7 +16,7 @@ class data extends \RD_Obj_Data {
 
 
 	/** Возвращает список позицей в корзине пользователя */
-	public function getBasketListCustomerId(int $customer_id) {
+	public function getBasketListCustomerIdActive(int $customer_id) {
 		$sql = "SELECT :col: FROM :tab: WHERE customer_id = {$customer_id} AND basket_deleted IS NULL";
 		$data = $this->select($sql);
 		return $data;

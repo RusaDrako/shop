@@ -24,13 +24,15 @@ class item extends \app\model\_added\item {
 
 		# Основные свойства объекта (соответствуют столбцам таблицы)
 		$column = [
-			'id_orders'        => 'ID',            # ID записи
-			'customer_id'      => 'CUSTOMER_ID',   # ID клиента
-			'orders_status'    => 'STATUS_ID',     # Статус
-			'orders_amount'    => 'AMOUNT',        # Стоимость
-			'orders_comment'   => 'COMMENT',       # Комментарий
-			'orders_created'   => 'CREATED',       # Дата создания
-			'orders_deleted'   => 'DELETED',       # Дата удаления
+			'id_orders'              => 'ID',              # ID записи
+			'customer_id'            => 'CUSTOMER_ID',     # ID клиента
+			'orders_status'          => 'STATUS_ID',       # Статус
+			'orders_amount'          => 'AMOUNT',          # Стоимость
+			'orders_comment'         => 'COMMENT',         # Комментарий
+//			'orders_address'         => 'ADDRESS',         # Адрес доставки
+//			'orders_delivery_type'   => 'DELIVERY_TYPE',   # Тип доставки: 0 - самовывоз, 1 - доставка
+			'orders_created'         => 'CREATED',         # Дата создания
+			'orders_deleted'         => 'DELETED',         # Дата удаления
 		];
 
 		foreach ($column as $k => $v) {

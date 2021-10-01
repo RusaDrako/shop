@@ -13,7 +13,7 @@
 					</div>
 				</div>
 				<div class="row p-0 m-2">
-					<div class="col p-0">
+					<div class="col p-0" style="text-overflow: ellipsis; white-space: nowrap; overflow: hidden;">
 						({$v->getKey()}) <a href="/goods/{$v->ID}">{$v->TITLE}</a>
 					</div>
 				</div>
@@ -24,7 +24,7 @@
 					</div>
 					<div class="col-4 p-0 text-right">
 						<a class="btn btn-success" href="/basket/add/{$v->ID}">
-							<i class="fa fa-shopping-basket" aria-hidden="true"></i>
+							<i class="fa fa-plus" aria-hidden="true"></i>
 						</a>
 					</div>
 				{else}

@@ -97,7 +97,7 @@ class item extends \app\model\_added\item {
 
 	/** Возвращает связанный спиок корзины */
 	public function getAssociatedBasketList() {
-		$list = \factory::call()->getObj('shop\basket')->getBasketListCustomerId($this->ID);
+		$list = \factory::call()->getObj('shop\basket')->getBasketListCustomerIdActive($this->ID);
 		return $list;
 	}
 

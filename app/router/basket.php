@@ -10,7 +10,7 @@ $group = '/' . basename(__FILE__, '.php') . '/';
 $func = function () {
 	$customer_item = \factory::call()->getUser();
 	view_shop::call()->variable('list', $customer_item->getAssociatedBasketList());
-	view_shop::call()->page('shop/basket__list');
+	view_shop::call()->page('basket/basket__list');
 };
 # Заглавная страница
 router::call()->any("{$group}", $func);
@@ -27,7 +27,7 @@ $func = function ($id_goods, $add_count = 1) {
 		$basket_item->addGoodsOne($add_count);
 		$basket_item->save();
 	}
-	echo 'ok';
+	header('Location:'.$_SERVER['HTTP_REFERER']);
 	exit;
 };
 # Заглавная страница
@@ -48,7 +48,7 @@ $func = function ($id_goods, $remote_count = 1) {
 			$basket_item->save();
 		}
 	}
-	echo 'ok';
+	header('Location:'.$_SERVER['HTTP_REFERER']);
 	exit;
 };
 # Заглавная страница
@@ -71,7 +71,7 @@ $func = function ($id_basket) {
 			}
 		}
 	}
-	echo 'ok';
+	header('Location:'.$_SERVER['HTTP_REFERER']);
 	exit;
 };
 # Заглавная страница
