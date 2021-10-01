@@ -45,9 +45,6 @@ $func = function ($id_goods, $remote_count = 1) {
 		$basket_item     = \factory::call()->getObj('shop\basket')->getBasketItemCustomerIdGoodsId($customer_item->ID, $id_goods);
 		if ($basket_item) {
 			$basket_item->removeGoodsOne($remote_count);
-			if ($basket_item->QUANTITY <= 0) {
-				$basket_item->setDeletedBasket();
-			}
 			$basket_item->save();
 		}
 	}
@@ -66,10 +63,12 @@ router::call()->any("{$group}remove/{id_goods}/{remote_count}", $func);
 $func = function ($id_basket) {
 	if ($id_basket) {
 		$customer_item   = \factory::call()->getUser();
-		$basket_item     = \factory::call()->getObj('shop\basket')->getBasketItemBasketIdCustomerIdActive($id_basket, $customer_item->ID);
+		$basket_item     = \factory::call()->getObj('shop\basket')->getByKey($id_basket);
 		if ($basket_item) {
-			$basket_item->setDeletedBasket();
-			$basket_item->save();
+			if ($basket_item->CUSTOMER_ID == $customer_item->ID) {
+				$basket_item->changeDeleted();
+				$basket_item->save();
+			}
 		}
 	}
 	echo 'ok';

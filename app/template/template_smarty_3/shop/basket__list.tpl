@@ -33,6 +33,10 @@
 				<a class="btn btn-success" href="/basket/add/{$goods_item->ID}/1">
 					<i class="fa fa-plus" aria-hidden="true"></i>
 				</a>
+				{if !$v->controlQuantityGoods()}
+				<br>
+				Недостаточно товара.
+				{/if}
 			</div>
 			<div class="col-2 pt-2 text-center bg-warning">
 				{$v->COST} руб.
@@ -42,6 +46,16 @@
 				Товар отсутствует
 			</div>
 		{/if}
+		<div class="col-1 pt-2 text-center">
+			<a class="btn btn-danger" href="/basket/delete/{$v->ID}">
+				<i class="fa fa-trash" aria-hidden="true"></i>
+			</a>
+		</div>
 	</div>
 {/foreach}
+<div class="row">
+	<div class="col-3 offset-9">
+		<a class="btn btn-success form-control" href="/orders/new/">Оформить заказ</a>
+	</div>
+</div>
 <!-- {"`$smarty.current_dir`/`$smarty.template`"|tmp_dir} end -->
