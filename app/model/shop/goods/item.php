@@ -4,7 +4,7 @@ namespace app\model\shop\goods;
 /**
  * @author Петухов Леонид <l.petuhov@okonti.ru>
  */
-class item extends \RD_Obj_Item {
+class item extends \app\model\_added\item {
 
 
 
@@ -26,6 +26,7 @@ class item extends \RD_Obj_Item {
 		$column = [
 			'id_goods'                   => 'ID',                   # ID записи
 			'section_id'                 => 'SECTION_ID',           # ID раздела
+			'goods_guid'                 => 'GUID',                 # GUID товара для синхронизации с внешними системами
 			'goods_title'                => 'TITLE',                # Наименование
 			'goods_description'          => 'DESCRIPTION',          # Описание
 			'goods_price'                => 'PRICE',                # Стоимость
@@ -49,7 +50,7 @@ class item extends \RD_Obj_Item {
 		# Генерируемые свойства объекта
 		$function = [
 			'IMG'         => function() {return '/img/box.png';},
-			'AVAILABLE'   => function() {return $this->AVAILABLE_QUANTITY ? 1 : 0;},
+			'AVAILABLE'   => function() {return $this->controlQuantityGoods(1);},
 			'COST'        => function() {
 				return $this->DISCOUNT > 0 && $this->DISCOUNT < 100
 						? number_format($this->PRICE * (100 - $this->DISCOUNT) / 100, 2)
@@ -91,9 +92,16 @@ class item extends \RD_Obj_Item {
 	public function save() {
 		$this->setProp('UPDATED',   date('Y-m-d H:i:s'));
 		parent::save();
-	}/**/
+	}
 
 
+
+	/** Проверяет доступность указанного количества товара */
+	public function controlQuantityGoods($quantity) {
+		if ($this->AVAILABLE_QUANTITY == -1)          {return true;}
+		if ($this->AVAILABLE_QUANTITY >= $quantity)   {return true;}
+		return false;
+	}
 
 
 

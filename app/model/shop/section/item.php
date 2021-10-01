@@ -4,7 +4,7 @@ namespace app\model\shop\section;
 /**
  * @author Петухов Леонид <l.petuhov@okonti.ru>
  */
-class item extends \RD_Obj_Item {
+class item extends \app\model\_added\item {
 
 
 
@@ -14,10 +14,6 @@ class item extends \RD_Obj_Item {
 		return $arr;
 	}
 
-	id_sectionПервичный 	int(11) 			Нет 	Нет 	ID записи 	AUTO_INCREMENT 	Изменить 	Удалить
-	2 	section_parent_id 	int(11) 			Да 	NULL 	ID родительского элемента 		Изменить 	Удалить
-	3 	section_title 	varchar(32) 	utf32_general_ci 		Нет 	Нет 	Название 		Изменить 	Удалить
-	4 	section_weight 	int(11) 			Нет 	0 	Вес в сортировке 		Изменить 	Удалить
 
 
 	/** Настройки объекта */
@@ -87,9 +83,7 @@ class item extends \RD_Obj_Item {
 	public function save() {
 		$this->setProp('UPDATED',   date('Y-m-d H:i:s'));
 		parent::save();
-	}/**/
-
-
+	}
 
 
 

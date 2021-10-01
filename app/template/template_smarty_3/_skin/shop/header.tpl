@@ -34,10 +34,14 @@
 				<div class="col-12 col-md pt-1">
 					<h3>Shop</h3>
 				</div>
-				<div class="col-12 col-md-1 pt-1">
-					<a class="btn btn-success" href="/basket/">
+				<div class="col-12 col-md-2 pt-1 text-right">
+					<a class="btn btn-warning" href="/basket/" title="Корзина">
 						<i class="fa fa-shopping-basket" aria-hidden="true"></i>
 					</a>
+					<a class="btn btn-success" href="/orders/" title="Заказы">
+						<i class="fa fa-file-text" aria-hidden="true"></i>
+					</a>
+
 				</div>
 			</div>
 	</div>

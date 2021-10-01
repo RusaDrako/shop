@@ -34,6 +34,8 @@ class factory extends \RD_Obj_Factory {
 			case 'shop\basket':      # Корзина
 			case 'shop\customer':    # Клиенты
 			case 'shop\goods':       # Товары
+			case 'shop\item':        # Позиции заказа
+			case 'shop\orders':      # Заказы
 			case 'shop\section':     # Разделы
 				$class_data_name = "\\app\\model\\{$alias}\\data";
 				$class_item_name = "\\app\\model\\{$alias}\\item";

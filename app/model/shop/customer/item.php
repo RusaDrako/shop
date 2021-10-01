@@ -4,7 +4,7 @@ namespace app\model\shop\customer;
 /**
  * @author Петухов Леонид <l.petuhov@okonti.ru>
  */
-class item extends \RD_Obj_Item {
+class item extends \app\model\_added\item {
 
 
 
@@ -87,12 +87,30 @@ class item extends \RD_Obj_Item {
 
 
 
+	/** Возвращает связанный спиок корзины */
+	public function createAssociatedOrders() {
+		$orders_item = \factory::call()->getObj('shop\orders')->newItem();
+		$orders_item->setDataCustomer($this, 1);
+		return $orders_item;
+	}
 
 
 	/** Возвращает связанный спиок корзины */
 	public function getAssociatedBasketList() {
 		$list = \factory::call()->getObj('shop\basket')->getBasketListCustomerId($this->ID);
 		return $list;
+	}
+
+
+
+	private $_orders_list = false;
+
+	/** Возвращает связанный элемент раздела */
+	public function getAssociatedOrdersList() {
+		if ($this->_orders_list === false) {
+			$this->_orders_list = \factory::call()->getObj('shop\orders')->getOrdersListCustomerId($this->ID);
+		}
+		return $this->_orders_list;
 	}
 
 

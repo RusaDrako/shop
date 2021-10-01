@@ -4,7 +4,7 @@ namespace app\model\shop\basket;
 /**
  * @author Петухов Леонид <l.petuhov@okonti.ru>
  */
-class item extends \RD_Obj_Item {
+class item extends \app\model\_added\item {
 
 
 
@@ -90,14 +90,29 @@ class item extends \RD_Obj_Item {
 
 
 
+	/** Проверяет наличие достаточного кол-ва товара */
+	public function controlQuantityGoods() {
+		return $this->getAssociatedGoodsItem()->controlQuantityGoods($this->QUANTITY);
+	}
+
+
+
+	/** Добавляет заданное единиц товара */
+	public function controlQuantity() {
+		$goods_item = $this->getAssociatedGoodsItem();
+		if (!$goods_item->controlQuantityGoods($this->QUANTITY)) {
+			$this->setProp('QUANTITY', $goods_item->AVAILABLE_QUANTITY);
+		} else if ($this->QUANTITY < 1) {
+			$this->setProp('QUANTITY', 1);
+		}
+	}
+
+
+
 	/** Добавляет заданное единиц товара */
 	public function addGoodsOne($add_count) {
 		$this->setProp('QUANTITY', $this->QUANTITY + $add_count);
-		$goods_item = $this->getAssociatedGoodsItem();
-		if ($this->QUANTITY > $goods_item->AVAILABLE_QUANTITY
-				&& $goods_item->AVAILABLE_QUANTITY >= 0) {
-			$this->setProp('QUANTITY', $goods_item->AVAILABLE_QUANTITY);
-		}
+		$this->controlQuantity();
 	}
 
 
@@ -105,17 +120,8 @@ class item extends \RD_Obj_Item {
 	/** Удаляет заданное единиц товара */
 	public function removeGoodsOne(int $remote_count) {
 		$this->setProp('QUANTITY', $this->QUANTITY - $remote_count);
-		if ($this->QUANTITY < 0) {
-			$this->setProp('QUANTITY', 0);
-		}
+		$this->controlQuantity();
 	}
-
-
-
-	/** Ставит маркер удаления */
-	public function setDeletedBasket() {
-		$this->setProp('DELETED', date('Y-m-d H:I:s'));
-	}/**/
 
 
 
