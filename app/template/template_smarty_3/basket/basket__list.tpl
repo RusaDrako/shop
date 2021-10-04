@@ -25,6 +25,9 @@
 			</div>
 			<div class="col-2 pt-2 text-center">
 				{$goods_item->COST} руб.
+				{if $goods_item->DISCOUNT}
+				<br>Скидка {$goods_item->DISCOUNT} %
+				{/if}
 			</div>
 			{if $goods_item->AVAILABLE}
 				<div class="col-2 px-1 py-2 text-center">

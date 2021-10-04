@@ -1,6 +1,6 @@
 <!-- {"`$smarty.current_dir`/`$smarty.template`"|tmp_dir} -->
-{print_info data=$card}
-{print_info data=$section_array}
+{*print_info data=$card*}
+{*print_info data=$section_array*}
 
 {foreach from=$section_array item=v key=k}
 	/ <a href="/section/{$v->ID}">{$v->TITLE}</a>
@@ -10,7 +10,12 @@
 		<h4>{$card->TITLE} ({$card->getKey()})</h4>
 	</div>
 	{if $card->AVAILABLE}
-		<div class="col-2">
+		{if $card->DISCOUNT}
+			<div class="col-3 text-right">
+				<h4 class="text-danger" title="Старая цена">{$card->PRICE} руб.</h4>
+			</div>
+		{/if}
+		<div class="col-2 text-right">
 			<h4><b>{$card->COST} руб.</b></h4>
 		</div>
 		<div class="col-1 text-right">

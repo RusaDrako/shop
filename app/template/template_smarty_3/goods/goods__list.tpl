@@ -22,7 +22,12 @@
 					<div class="col p-0 py-2">
 						<span class="p-2 bg-warning">{$v->COST} руб.</span>
 					</div>
-					<div class="col-4 p-0 text-right">
+					{if $v->DISCOUNT}
+						<div class="col p-0 py-2">
+							<span class="p-2 border border-danger" title="Старая цена">{$v->PRICE} руб.</span>
+						</div>
+					{/if}
+					<div class="col-2 p-0 text-right">
 						<a class="btn btn-success" href="/basket/add/{$v->ID}">
 							<i class="fa fa-plus" aria-hidden="true"></i>
 						</a>
