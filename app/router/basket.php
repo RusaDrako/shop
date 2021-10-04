@@ -10,6 +10,7 @@ $group = '/' . basename(__FILE__, '.php') . '/';
 $func = function () {
 	$customer_item = \factory::call()->getUser();
 	view_shop::call()->variable('list', $customer_item->getAssociatedBasketList());
+	view_shop::call()->variable('order_delivery_array', \factory::call()->getObj('shop\orders')->settingsDeliveryType());
 	view_shop::call()->page('basket/basket__list');
 };
 # Заглавная страница

@@ -16,12 +16,13 @@ namespace app\config\elbrus\view;
 # Возвращает массив модификаторов
 function smarty_modifier__registry() {
 	return [
-		'fio'			=> __NAMESPACE__ .'\smarty_modifier__fio',
-		'phone'			=> __NAMESPACE__ .'\smarty_modifier__phone_format',
-		'phone_hidden'	=> __NAMESPACE__ .'\smarty_modifier__phone_hidden',
-		'email_hidden'	=> __NAMESPACE__ .'\smarty_modifier__email_hidden',
-		'str_hidden'	=> __NAMESPACE__ .'\smarty_modifier__str_hidden',
-		'tmp_dir'		=> __NAMESPACE__ .'\smarty_modifier__template_dir',
+		'fio'            => __NAMESPACE__ .'\smarty_modifier__fio',
+		'phone'          => __NAMESPACE__ .'\smarty_modifier__phone_format',
+		'phone_hidden'   => __NAMESPACE__ .'\smarty_modifier__phone_hidden',
+		'email_hidden'   => __NAMESPACE__ .'\smarty_modifier__email_hidden',
+		'str_hidden'     => __NAMESPACE__ .'\smarty_modifier__str_hidden',
+		'tmp_dir'        => __NAMESPACE__ .'\smarty_modifier__template_dir',
+		'currency'       => __NAMESPACE__ .'\smarty_modifier__currency',
 	];
 }
 
@@ -104,4 +105,7 @@ function smarty_modifier__template_dir($value) {
 
 
 
-/**/
+/** Функция-модификатор: Модификация папки шаблона */
+function smarty_modifier__currency($value) {
+	return number_format($value, 2, '.',' ') . ' ₽';
+}

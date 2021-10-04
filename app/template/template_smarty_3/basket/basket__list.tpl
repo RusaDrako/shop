@@ -24,7 +24,7 @@
 				<a href="/goods/{$goods_item->ID}">{$goods_item->TITLE}</a> ({$goods_item->getKey()})
 			</div>
 			<div class="col-2 pt-2 text-center">
-				{$goods_item->COST} руб.
+				{$goods_item->COST|currency}
 				{if $goods_item->DISCOUNT}
 				<br>Скидка {$goods_item->DISCOUNT} %
 				{/if}
@@ -46,7 +46,7 @@
 					{/if}
 				</div>
 				<div class="col-2 pt-2 text-center bg-warning">
-					{$v->COST} руб.
+					{$v->COST|currency}
 				</div>
 			{else}
 				<div class="col-4 pt-2 text-center bg-danger">
@@ -60,6 +60,10 @@
 			</div>
 		</div>
 	{/foreach}
+	<hr>
+	Дополнительная информация
+	{include file="orders/orders__form_order.tpl" order_delivery_array=$order_delivery_array}
+	<hr>
 	<div class="row">
 		<div class="col-3 offset-9">
 			<button class="btn btn-success form-control" type="submit">Оформить заказ</button>

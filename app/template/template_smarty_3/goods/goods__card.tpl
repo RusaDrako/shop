@@ -12,11 +12,11 @@
 	{if $card->AVAILABLE}
 		{if $card->DISCOUNT}
 			<div class="col-3 text-right">
-				<h4 class="text-danger" title="Старая цена">{$card->PRICE} руб.</h4>
+				<h4 class="text-danger" title="Старая цена">{$card->PRICE|currency}</h4>
 			</div>
 		{/if}
 		<div class="col-2 text-right">
-			<h4><b>{$card->COST} руб.</b></h4>
+			<h4><b>{$card->COST|currency}</b></h4>
 		</div>
 		<div class="col-1 text-right">
 			<a class="btn btn-success" href="/basket/add/{$card->ID}/">

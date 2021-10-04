@@ -20,11 +20,11 @@
 				<div class="row p-0 m-0">
 				{if $v->AVAILABLE}
 					<div class="col p-0 py-2">
-						<span class="p-2 bg-warning">{$v->COST} руб.</span>
+						<span class="p-2 bg-warning">{$v->COST|currency}</span>
 					</div>
 					{if $v->DISCOUNT}
 						<div class="col p-0 py-2">
-							<span class="p-2 border border-danger" title="Старая цена">{$v->PRICE} руб.</span>
+							<span class="p-2 border border-danger" title="Старая цена">{$v->PRICE|currency}</span>
 						</div>
 					{/if}
 					<div class="col-2 p-0 text-right">

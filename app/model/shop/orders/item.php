@@ -24,15 +24,21 @@ class item extends \app\model\_added\item {
 
 		# Основные свойства объекта (соответствуют столбцам таблицы)
 		$column = [
-			'id_orders'              => 'ID',              # ID записи
-			'customer_id'            => 'CUSTOMER_ID',     # ID клиента
-			'orders_status'          => 'STATUS_ID',       # Статус
-			'orders_amount'          => 'AMOUNT',          # Стоимость
-			'orders_comment'         => 'COMMENT',         # Комментарий
-//			'orders_address'         => 'ADDRESS',         # Адрес доставки
-//			'orders_delivery_type'   => 'DELIVERY_TYPE',   # Тип доставки: 0 - самовывоз, 1 - доставка
-			'orders_created'         => 'CREATED',         # Дата создания
-			'orders_deleted'         => 'DELETED',         # Дата удаления
+			'id_orders'                    => 'ID',                 # ID записи
+			'customer_id'                  => 'CUSTOMER_ID',        # ID клиента
+			'orders_status'                => 'STATUS',             # Статус
+			'orders_payment'               => 'PAYMENT',            # Отметка об оплате
+			'orders_amount'                => 'AMOUNT',             # Стоимость
+			'orders_customer_surname'      => 'SURNAME',            # Фамилия
+			'orders_customer_name'         => 'NAME',               # Имя
+			'orders_customer_middlename'   => 'MIDDLENAME',         # Отчество
+			'orders_customer_phone'        => 'PHONE',              # Телефон
+			'orders_customer_email'        => 'EMAIL',              # Email
+			'orders_delivery_type'         => 'DELIVERY_TYPE',      # Тип доставки: 1 - самовывоз, 2 - курьер, 3 - доставка
+			'orders_delivery_address'      => 'DELIVERY_ADDRESS',   # Адрес доставки
+			'orders_comment'               => 'COMMENT',            # Комментарий
+			'orders_created'               => 'CREATED',            # Дата создания
+			'orders_deleted'               => 'DELETED',            # Дата удаления
 		];
 
 		foreach ($column as $k => $v) {
@@ -48,10 +54,18 @@ class item extends \app\model\_added\item {
 		}/**/
 
 		# Генерируемые свойства объекта
-/*		$function = [
-			'COST'     => function() {
-				$goods_item = $this->getAssociatedGoodsItem();
-				return $goods_item->COST * $this->QUANTITY;
+		$function = [
+			'STATUS_TITLE'     => function() {
+				$arr = $this->obj_data->settingsStatus();
+				return isset($arr[$this->STATUS])
+						? $arr[$this->STATUS]['title']
+						: 'Не определено';
+			},
+			'DELIVERY_TYPE_TITLE'     => function() {
+				$arr = $this->obj_data->settingsDeliveryType();
+				return isset($arr[$this->DELIVERY_TYPE])
+						? $arr[$this->DELIVERY_TYPE]['title']
+						: 'Не определено';
 			},
 		];
 		foreach ($function as $k => $v) {
@@ -97,6 +111,13 @@ class item extends \app\model\_added\item {
 	public function setDataCustomer($customer_item, $status) {
 		$this->setProp('CUSTOMER_ID',   $customer_item->ID);
 		$this->setProp('STATUS_ID',     $status);
+	}
+
+
+
+	/** Устанавливает метку об оплате */
+	public function setOrdersPayment() {
+		$this->setProp('PAYMENT',   date('Y-m-d H:i:s'));
 	}
 
 

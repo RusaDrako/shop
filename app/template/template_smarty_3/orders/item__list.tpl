@@ -32,7 +32,7 @@
 			</a>
 		</div>
 		<div class="col-1 p-0 pt-2 text-right">
-			{$v->PRICE|string_format:"%.2f"} руб.
+			{$v->PRICE|currency}
 		</div>
 		<div class="col-1 p-0 pt-2 text-right">
 			{$v->DISCOUNT} %
@@ -41,7 +41,7 @@
 			{$v->QUANTITY} шт.
 		</div>
 		<div class="col-1 p-0 pt-2 text-right">
-			{$v->AMOUNT|string_format:"%.2f"} руб.
+			{$v->AMOUNT|currency}
 		</div>
 	</div>
 {/foreach}
@@ -50,7 +50,7 @@
 		<strong>ИТОГО:</strong>
 	</div>
 	<div class="col-2 p-0 py-1 text-right">
-		<strong>{$card->AMOUNT|string_format:"%.2f"} руб.</strong>
+		<strong>{$card->AMOUNT|currency}</strong>
 	</div>
 </div>
 <!-- {"`$smarty.current_dir`/`$smarty.template`"|tmp_dir} end -->
