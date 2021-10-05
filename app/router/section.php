@@ -22,9 +22,7 @@ router::call()->any("{$group}", $func);
 $func = function ($id_section) {
 	$section_item     = \factory::call()->getObj('shop\section')->getByKey($id_section);
 	if (!$section_item) {
-		\view_shop::call()->variable('type', 'warning');
-		\view_shop::call()->variable('text', 'Раздел не найден');
-		\view_shop::call()->page('__error/error');
+		\factory::call()->page_warning('Раздел не найден');
 		exit;
 	}
 	view_shop::call()->variable('card',            $section_item);

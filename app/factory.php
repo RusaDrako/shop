@@ -36,6 +36,7 @@ class factory extends \RD_Obj_Factory {
 			case 'shop\goods':       # Товары
 			case 'shop\item':        # Позиции заказа
 			case 'shop\orders':      # Заказы
+			case 'shop\payment':     # Оплаты
 			case 'shop\section':     # Разделы
 				$class_data_name = "\\app\\model\\{$alias}\\data";
 				$class_item_name = "\\app\\model\\{$alias}\\item";
@@ -80,6 +81,13 @@ class factory extends \RD_Obj_Factory {
 			$this->obj_db[$alias] = $obj_db;
 		}
 		return $this->obj_db[$alias];/**/
+	}
+
+
+
+	/** Возвращает контроллер страниц */
+	public function getPage() {
+		return new \app\controller\default_page();
 	}
 
 

@@ -60,18 +60,13 @@ $func = function () {
 			$v->save();
 		}
 	}
-	if (!$orders_item->getAssociatedItemList()->count()) {
-		\factory::call()->getPage()->page_warning('Вы не выбрали позиции для заказа.');
-//		header("Location: /basket/");
-		exit;
-	}
 	$orders_item->calculationOrdersAmount();
 	$orders_item->save();
 //print_info($orders_item, '$orders_item');
 //print_info($orders_item->getAssociatedItemList(), '$item_list');
-//	view_shop::call()->variable('card',            $orders_item);
-//	view_shop::call()->page('orders/orders__common');
-	header("Location: /orders/{$orders_item->ID}/");
+	view_shop::call()->variable('card',            $orders_item);
+	view_shop::call()->page('orders/orders__common');
+
 	exit;
 };
 # Заглавная страница
@@ -83,16 +78,9 @@ router::call()->any("{$group}new", $func);
 
 /** Добавление товара в корзину */
 $func = function ($order_id) {
-	$customer_item = \factory::call()->getUser();
 	$orders_item = \factory::call()->getObj('shop\orders')->getByKey($order_id);
-	if (!$orders_item || $orders_item->CUSTOMER_ID != $customer_item->ID) {
-		\factory::call()->getPage()->page_404();
-		exit;
-	}
 //	$orders_item->calculationOrdersAmount();
 	view_shop::call()->variable('card',            $orders_item);
-	view_shop::call()->variable('item_list',       $orders_item->getAssociatedItemList());
-	view_shop::call()->variable('payment_list',    $orders_item->getAssociatedPaymentList());
 	view_shop::call()->page('orders/orders__common');
 	exit;
 };

@@ -110,7 +110,7 @@ class item extends \app\model\_added\item {
 	/** Расчитывает сумму заказа */
 	public function setDataCustomer($customer_item, $status) {
 		$this->setProp('CUSTOMER_ID',   $customer_item->ID);
-		$this->setProp('STATUS_ID',     $status);
+		$this->setProp('STATUS',        $status);
 	}
 
 
@@ -136,7 +136,7 @@ class item extends \app\model\_added\item {
 
 	private $_item_list = false;
 
-	/** Возвращает связанный элемент товара */
+	/** Возвращает связанный позиции */
 	public function getAssociatedItemList() {
 		if ($this->_item_list === false) {
 			$this->_item_list = \factory::call()->getObj('shop\item')->getItemListOrdersId((int)$this->ID);
@@ -152,8 +152,6 @@ class item extends \app\model\_added\item {
 		$item_item->setDataOrders($this);
 
 		$item_list = $this->getAssociatedItemList();
-//		print_info($item_list, 'item_list');
-//		print_info($item_item, 'item_item');
 		$item_list->add($item_item);
 
 		return $item_item;
@@ -169,6 +167,43 @@ class item extends \app\model\_added\item {
 			$amount = $amount + $v->AMOUNT;
 		}
 		$this->setProp('AMOUNT',   $amount);
+	}
+
+
+
+	private $_payment_list = false;
+
+	/** Возвращает связанный список оплат */
+	public function getAssociatedPaymentList() {
+		if ($this->_payment_list === false) {
+			$this->_payment_list = \factory::call()->getObj('shop\payment')->getPaymentListOrdersId((int)$this->ID);
+		}
+		return $this->_payment_list;
+	}
+
+
+
+	/** Возвращает новую оплату */
+	public function createAssociatedPayment() {
+		$payment_item = \factory::call()->getObj('shop\payment')->newItem();
+		$payment_item->setDataOrders($this);
+
+		$payment_list = $this->getAssociatedPaymentList();
+		$payment_list->add($payment_item);
+
+		return $payment_item;
+	}
+
+
+
+	/** Расчитывает сумму заказа */
+	public function calculationPaymentAmount() {
+		$payment_list = $this->getAssociatedPaymentList();
+		$amount = 0;
+		foreach ($payment_list->iterator() as $k => $v) {
+			$amount = $amount + $v->AMOUNT;
+		}
+		return $amount;
 	}
 
 

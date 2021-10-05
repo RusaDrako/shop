@@ -17,8 +17,14 @@
 	{assign var="alert_title" value='Внимание!'}
 {/if}
 <div class="alert {$alert_class}">
-<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-	<h5><i class="icon {$alert_icon}"></i> {$alert_title}</h5>
+	<div class="row">
+		<div class="col">
+			<h5><i class="icon {$alert_icon}"></i> {$alert_title}</h5>
+		</div>
+		<div class="col-2 text-end">
+			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+		</div>
+	</div>
 	{$text}
 </div>
 <!-- {"`$smarty.current_dir`/`$smarty.template`"|tmp_dir} end -->
