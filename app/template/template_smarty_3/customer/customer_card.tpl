@@ -4,7 +4,7 @@
 	<div class="col">
 		<h4>{$card->TITLE} ({$card->getKey()})</h4>
 	</div>
-	<div class="col-1 text-right">
+	<div class="col-1 text-end">
 
 		<a class="btn btn-default" href="/project/task/new/{$project_id}">
 			123<i class="fa fa-plus"></i>

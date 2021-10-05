@@ -8,7 +8,7 @@
 		<div class="col text-center">
 			{$v->CREATED}
 		</div>
-		<div class="col-2 text-right">
+		<div class="col-2 text-end">
 			{$v->AMOUNT|currency}
 		</div>
 		<div class="col-2 text-center">

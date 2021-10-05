@@ -27,7 +27,7 @@
 							<span class="p-2 border border-danger" title="Старая цена">{$v->PRICE|currency}</span>
 						</div>
 					{/if}
-					<div class="col-2 p-0 text-right">
+					<div class="col-2 p-0 text-end">
 						<a class="btn btn-success" href="/basket/add/{$v->ID}">
 							<i class="fa fa-plus" aria-hidden="true"></i>
 						</a>

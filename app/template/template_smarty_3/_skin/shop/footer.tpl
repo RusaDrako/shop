@@ -8,7 +8,7 @@
 				<div class="col text-center">
 					<a href="https://github.com/RusaDrako/shop">shop</a> (c) 2021
 				</div>
-				<div class="col-3 text-right">
+				<div class="col-3 text-end">
 				</div>
 			</div>
 		</div>

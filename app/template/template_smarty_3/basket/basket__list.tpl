@@ -5,6 +5,7 @@
 		<h4>Корзина</h4>
 	</div>
 </div>
+<br>
 <form method="post" action="/orders/new">
 	{foreach from=$list->get_array() item=v key=k}
 		{assign var="goods_item" value=$v->getAssociatedGoodsItem()}
@@ -31,17 +32,16 @@
 			</div>
 			{if $goods_item->AVAILABLE}
 				<div class="col-2 px-1 py-2 text-center">
-					<a class="btn btn-success" href="/basket/remove/{$goods_item->ID}/1">
-						<i class="fa fa-minus" aria-hidden="true"></i>
-					</a>
-					<span class="border border-success py-1 px-2">
-						{$v->QUANTITY}
-					</span>
-					<a class="btn btn-success" href="/basket/add/{$goods_item->ID}/1">
-						<i class="fa fa-plus" aria-hidden="true"></i>
-					</a>
+					<div class="input-group px-4">
+						<a class="input-group-text" href="/basket/remove/{$goods_item->ID}/1">
+							<i class="fa fa-minus" aria-hidden="true"></i>
+						</a>
+						<input type="text" class="form-control text-center" value="{$v->QUANTITY}">
+						<a class="input-group-text" href="/basket/add/{$goods_item->ID}/1">
+							<i class="fa fa-plus" aria-hidden="true"></i>
+						</a>
+					</div>
 					{if !$v->controlQuantityGoods()}
-					<br>
 					Недостаточно товара.
 					{/if}
 				</div>
@@ -60,8 +60,9 @@
 			</div>
 		</div>
 	{/foreach}
-	<hr>
-	Дополнительная информация
+	<br><br>
+	<h4>Дополнительная информация</h4>
+	<br>
 	{include file="orders/orders__form_order.tpl" order_delivery_array=$order_delivery_array}
 	<hr>
 	<div class="row">
