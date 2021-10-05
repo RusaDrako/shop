@@ -35,7 +35,9 @@
 			{$v->PRICE|currency}
 		</div>
 		<div class="col-1 p-1 py-2 text-end">
-			{$v->DISCOUNT} %
+			{if $v->DISCOUNT}
+				<span class="badge bg-success">{$v->DISCOUNT} %</span>
+			{/if}
 		</div>
 		<div class="col-1 p-1 py-2 text-end">
 			{$v->QUANTITY} шт.

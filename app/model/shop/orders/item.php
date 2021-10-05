@@ -107,10 +107,19 @@ class item extends \app\model\_added\item {
 
 
 
-	/** Расчитывает сумму заказа */
+	/** Устанавливает настройки пользователя и статуса */
 	public function setDataCustomer($customer_item, $status) {
 		$this->setProp('CUSTOMER_ID',   $customer_item->ID);
 		$this->setProp('STATUS',        $status);
+	}
+
+
+
+	/** Устанавливает ФИО */
+	public function setFullName($surname, $name, $middlename) {
+		$this->setProp('SURNAME',       $surname);
+		$this->setProp('NAME',          $name);
+		$this->setProp('MIDDLENAME',    $middlename);
 	}
 
 

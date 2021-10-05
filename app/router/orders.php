@@ -22,55 +22,71 @@ router::call()->any("{$group}", $func);
 /** Добавление товара в корзину */
 $func = function () {
 	$basket_arr      = \request::call()->get('basket', []);
-//print_info(\request::call(), '\request::call()');
-//print_info($basket_arr, '$basket_arr');
+	# Получаем клиента
 	$customer_item   = \factory::call()->getUser();
+	# Список позиций в корзине
 	$basket_list     = $customer_item->getAssociatedBasketList();
-	if ($basket_list->count()) {
-//print_info($basket_list, '$basket_list');
-		$orders_item = $customer_item->createAssociatedOrders();
-//$orders_item->setProp('ID', 2);
-		$orders_item->setProp('SURNAME',            \request::call()->get('surname'));
-		$orders_item->setProp('NAME',               \request::call()->get('name'));
-		$orders_item->setProp('MIDDLENAME',         \request::call()->get('middlename'));
-		$orders_item->setProp('PHONE',              \request::call()->get('phone'));
-		$orders_item->setProp('EMAIL',              \request::call()->get('email'));
-		$orders_item->setProp('DELIVERY_ADDRESS',   \request::call()->get('address'));
-		$orders_item->setProp('DELIVERY_TYPE',      \request::call()->get('delivery_type'));
-		$orders_item->setProp('COMMENT',            \request::call()->get('comment'));
-		$orders_item->save();
-		foreach ($basket_list->iterator() as $k => $v) {
-//print_info($v, $v->ID);
-			if (!in_array($v->ID, $basket_arr)) {
-//				echo "\n" . 'Не выбран.<br>';
-				continue;
-			};
-			if (!$v->getAssociatedGoodsItem()->AVAILABLE) {
-//				echo 'Товар недоступен.<br>';
-				continue;
-			}
-			if (!$v->controlQuantityGoods()) {
-//				echo "\n" . 'Недостаточно товара.<br>';
-				continue;
-			};
-			$item_item = $orders_item->createAssociatedItem();
-			$item_item->setDataBasket($v);
-			$item_item->save();
-			$v->setDeleted();
-			$v->save();
-		}
-	}
-	if (!$orders_item->getAssociatedItemList()->count()) {
-		\factory::call()->getPage()->page_warning('Вы не выбрали позиции для заказа.');
+	# Если в корзине нет позиций
+	if (!$basket_list->count()) {
+		\factory::call()->getPage()->page_warning('Вкорзине нет товаров для покупки.');
 //		header("Location: /basket/");
 		exit;
 	}
+
+	# Получаем массив элементов для добавления в заказ
+	$basket_item_arr = [];
+	foreach ($basket_list->iterator() as $k => $v) {
+		# Если позиция не найденна в выбраных для заказа позиции
+		if (!in_array($v->ID, $basket_arr)) {
+//				echo 'Не выбран.<br>';
+			continue;
+		};
+		# Если товар не доступен для заказа
+		if (!$v->getAssociatedGoodsItem()->AVAILABLE) {
+//				echo 'Товар недоступен.<br>';
+			continue;
+		}
+		# Если количество товара не доступен для заказа
+		if (!$v->controlQuantityGoods()) {
+//				echo 'Недостаточно товара.<br>';
+			continue;
+		};
+		# Добавляем позицию в список для добавления в звказ
+		$basket_item_arr[] = $v;
+	}
+	# Если нет позиций для добавления
+	if (!count($basket_item_arr)) {
+		\factory::call()->getPage()->page_warning('Нет позиций для заказа.');
+		exit;
+	}
+//print_info($basket_list, '$basket_list');
+	# Формируем заказ
+	$orders_item = $customer_item->createAssociatedOrders();
+//$orders_item->setProp('ID', 2);
+	$orders_item->setFullName(
+		\request::call()->get('surname')
+		,\request::call()->get('name')
+		,\request::call()->get('middlename')
+	);
+	$orders_item->setProp('PHONE',              \request::call()->get('phone'));
+	$orders_item->setProp('EMAIL',              \request::call()->get('email'));
+	$orders_item->setProp('DELIVERY_TYPE',      \request::call()->get('delivery_type'));
+	$orders_item->setProp('DELIVERY_ADDRESS',   \request::call()->get('address'));
+	$orders_item->setProp('COMMENT',            \request::call()->get('comment'));
+	$orders_item->save();
+	# Добавляем позиции к заказу
+	foreach ($basket_item_arr as $k => $v) {
+		$item_item = $orders_item->createAssociatedItem();
+		$item_item->setDataBasket($v);
+		$item_item->save();
+		# Удаляем позицию в корзине
+		$v->setDeleted();
+		$v->save();
+	}
+	# Расчитываем стоймость заказа
 	$orders_item->calculationOrdersAmount();
 	$orders_item->save();
-//print_info($orders_item, '$orders_item');
-//print_info($orders_item->getAssociatedItemList(), '$item_list');
-//	view_shop::call()->variable('card',            $orders_item);
-//	view_shop::call()->page('orders/orders__common');
+	# Переходим на страницу заказа
 	header("Location: /orders/{$orders_item->ID}/");
 	exit;
 };

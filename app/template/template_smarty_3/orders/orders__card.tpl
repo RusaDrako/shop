@@ -17,7 +17,7 @@
 		<strong>Статус:</strong>
 	</div>
 	<div class="col-3 py-1">
-		{$card->STATUS_TITLE}
+		<span class="badge bg-danger">{$card->STATUS_TITLE}</span>
 	</div>
 </div>
 <div class="row mb-2">

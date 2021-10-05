@@ -87,7 +87,7 @@ class item extends \app\model\_added\item {
 
 
 
-	/** Возвращает связанный спиок корзины */
+	/** Создаёт связанный заказ */
 	public function createAssociatedOrders() {
 		$orders_item = \factory::call()->getObj('shop\orders')->newItem();
 		$orders_item->setDataCustomer($this, 1);
@@ -95,22 +95,23 @@ class item extends \app\model\_added\item {
 	}
 
 
-	/** Возвращает связанный спиок корзины */
-	public function getAssociatedBasketList() {
-		$list = \factory::call()->getObj('shop\basket')->getBasketListCustomerIdActive($this->ID);
-		return $list;
-	}
-
-
 
 	private $_orders_list = false;
 
-	/** Возвращает связанный элемент раздела */
+	/** Возвращает связанный список заказов */
 	public function getAssociatedOrdersList() {
 		if ($this->_orders_list === false) {
 			$this->_orders_list = \factory::call()->getObj('shop\orders')->getOrdersListCustomerId($this->ID);
 		}
 		return $this->_orders_list;
+	}
+
+
+
+	/** Возвращает связанный список корзины */
+	public function getAssociatedBasketList() {
+		$list = \factory::call()->getObj('shop\basket')->getBasketListCustomerIdActive($this->ID);
+		return $list;
 	}
 
 

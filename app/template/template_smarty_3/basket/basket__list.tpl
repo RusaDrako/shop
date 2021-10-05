@@ -27,19 +27,20 @@
 			<div class="col-2 pt-2 text-center">
 				{$goods_item->COST|currency}
 				{if $goods_item->DISCOUNT}
-				<br>Скидка {$goods_item->DISCOUNT} %
+				<br>
+				<span class="badge bg-success">Скидка {$goods_item->DISCOUNT} %<span>
 				{/if}
 			</div>
 			{if $goods_item->AVAILABLE}
 				<div class="col-2 px-1 py-2 text-center">
 					<div class="input-group px-4">
-						<a class="input-group-text" href="/basket/remove/{$goods_item->ID}/1">
+						<span class="input-group-text" onclick="javascript: document.location.href='/basket/remove/{$goods_item->ID}/1';">
 							<i class="fa fa-minus" aria-hidden="true"></i>
-						</a>
+						</span>
 						<input type="text" class="form-control text-center" value="{$v->QUANTITY}">
-						<a class="input-group-text" href="/basket/add/{$goods_item->ID}/1">
+						<span class="input-group-text" onclick="javascript: document.location.href='/basket/add/{$goods_item->ID}/1';">
 							<i class="fa fa-plus" aria-hidden="true"></i>
-						</a>
+						</span>
 					</div>
 					{if !$v->controlQuantityGoods()}
 					Недостаточно товара.
