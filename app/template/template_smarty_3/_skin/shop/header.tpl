@@ -35,6 +35,9 @@
 				<h3>Shop</h3>
 			</div>
 			<div class="col-12 col-md-2 pt-1 text-end">
+				<a class="btn btn-danger" href="/admin/" title="Админка">
+					<i class="fa fa-user" aria-hidden="true"></i>
+				</a>
 				<a class="btn btn-warning" href="/basket/" title="Корзина">
 					<i class="fa fa-shopping-basket" aria-hidden="true"></i>
 				</a>
