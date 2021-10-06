@@ -47,5 +47,14 @@ class item extends \RD_Obj_Item {
 
 
 
+	/** Снимает маркер удаления */
+	public function cleanDeleted() {
+		try {
+			$this->setProp('DELETED', NULL);
+		} catch (\Exception $e) { }
+	}/**/
+
+
+
 /**/
 }

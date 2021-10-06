@@ -87,6 +87,17 @@ class item extends \app\model\_added\item {
 
 
 
+	/** Создаёт зависимый раздел */
+	public function createAssociatedSectionItem() {
+		$section_item = \factory::call()->getObj('shop\section')->newItem();
+		$section_item->setProp('PARENT_ID',   $this->ID);
+		return $section_item;
+	}
+
+
+
+
+
 	/** Возвращает массив цепочки разделов */
 	public function getSectionParentArray($array_parent = []) {
 		$section_item = $this->getAssociatedSectionParentItem();
