@@ -2,6 +2,8 @@
 
 ### TODO Добавить логирование сотрудника
 
+view_shop::call()->variable('obj_page', new \app\controller\page_admin());
+
 # Группа маршрутов
 $group2 = router::call()->get_group(2);
 

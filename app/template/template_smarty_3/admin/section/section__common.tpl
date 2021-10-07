@@ -1,5 +1,7 @@
 <!-- {"`$smarty.current_dir`/`$smarty.template`"|tmp_dir} -->
 {*print_info data=$list*}
+{$obj_page->addMenu()}
+
 <h4>Разделы</h4>
 
 <form action="/admin/section/save">

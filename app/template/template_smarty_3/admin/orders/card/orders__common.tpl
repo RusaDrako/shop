@@ -1,5 +1,6 @@
 <!-- {"`$smarty.current_dir`/`$smarty.template`"|tmp_dir} -->
 {*print_info data=$card*}
+{$obj_page->addMenu()}
 
 <h4>Заказ</h4>
 <br>
