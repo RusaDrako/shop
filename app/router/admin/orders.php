@@ -23,7 +23,7 @@ $func = function () {
 	view_shop::call()->variable('list',           $orders_list);
 	view_shop::call()->variable('status_arr',     \factory::call()->getObj('shop\orders')->settingsStatus());
 	view_shop::call()->variable('delivery_arr',   \factory::call()->getObj('shop\orders')->settingsDeliveryType());
-	view_shop::call()->page('admin/orders/orders__common_list');
+	view_shop::call()->page('admin/orders/list/orders__common');
 };
 # Заглавная страница
 router::call()->any("{$module}/", $func);
@@ -129,7 +129,7 @@ $func = function ($order_id) {
 	view_shop::call()->variable('status_arr',                   \factory::call()->getObj('shop\orders')->settingsStatus());
 	view_shop::call()->variable('payment_arr',                  \factory::call()->getObj('shop\payment')->settingsType());
 
-	view_shop::call()->page('admin/orders/orders__common_card');
+	view_shop::call()->page('admin/orders/card/orders__common');
 	exit;
 };
 # Заглавная страница

@@ -2,9 +2,9 @@
 {*print_info data=$list*}
 {*print_info data=$status_arr*}
 <h4>Список заказов</h4>
-{include file="admin/orders/orders__search.tpl"}
+{include file="admin/orders/list/orders__form_search.tpl"}
 <br>
 <hr>
 <br>
-{include file="admin/orders/orders__list.tpl"}
+{include file="admin/orders/list/orders__list.tpl"}
 <!-- {"`$smarty.current_dir`/`$smarty.template`"|tmp_dir} end -->

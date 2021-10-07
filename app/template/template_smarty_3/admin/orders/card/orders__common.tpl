@@ -3,14 +3,14 @@
 
 <h4>Заказ</h4>
 <br>
-{include file="orders/orders__card.tpl" card=$card}
+{include file="admin/orders/card/orders__card.tpl" card=$card}
 
 <br><br>
 
 <small>
 	<h4>Позиции</h4>
 	<br>
-	{include file="admin/orders/item__list.tpl" list=$item_list}
+	{include file="admin/orders/card/item__list.tpl" list=$item_list}
 
 	<br><br>
 
@@ -18,16 +18,16 @@
 		<div class="col">
 			<h4>История статусов</h4>
 			<br>
-			{include file="admin/orders/orders__form_status.tpl"}
+			{include file="admin/orders/card/status_history__form.tpl"}
 			<br>
-			{include file="admin/orders/orders_status_history__list.tpl" list=$orders_status_history_list}
+			{include file="admin/orders/card/status_history__list.tpl" list=$orders_status_history_list}
 		</div>
 		<div class="col offset-1">
 			<h4>История оплата</h4>
 			<br>
-			{include file="admin/orders/orders__form_payment.tpl"}
+			{include file="admin/orders/card/payment__form.tpl"}
 			<br>
-			{include file="admin/orders/payment__list.tpl" list=$payment_list}
+			{include file="admin/orders/card/payment__list.tpl" list=$payment_list}
 		</div>
 	</div>
 </small>
