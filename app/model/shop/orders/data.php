@@ -62,8 +62,8 @@ class data extends \RD_Obj_Data {
 			'orders_deleted IS NULL',
 		];
 
-		if (isset($input['number']) && $input['number']) {
-			$filter[] = "id_orders = {$input['number']}";
+		if (isset($input['id']) && $input['id']) {
+			$filter[] = "id_orders = {$input['id']}";
 		}
 		if (isset($input['name']) && $input['name']) {
 			$filter[] = "orders_customer_surname LIKE '%{$input['name']}%' OR orders_customer_name LIKE '%{$input['name']}%' OR orders_customer_middlename LIKE '%{$input['name']}%'";

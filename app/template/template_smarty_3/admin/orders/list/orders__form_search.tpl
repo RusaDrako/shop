@@ -6,9 +6,9 @@
 		<div class="col-3">
 			<div class="input-group">
 				<span class="input-group-text">
-					Номер заказа
+					ID
 				</span>
-				<input class="form-control" type="text" name="number" value="{$input.number}">
+				<input class="form-control" type="text" name="id" value="{$input.id}">
 			</div>
 		</div>
 		<div class="col-3">

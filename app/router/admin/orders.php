@@ -8,7 +8,7 @@ $module = "/{$group}/" . basename(__FILE__, '.php');
 $func = function () {
 //print_info(\request::call());
 
-	$input['number']                = \request::call()->get('number');
+	$input['id']                    = \request::call()->get('id');
 	$input['name']                  = \request::call()->get('name');
 	$input['phone']                 = \request::call()->get('phone');
 	$input['address']               = \request::call()->get('address');
@@ -114,13 +114,12 @@ router::call()->any("{$module}/payment/", $func);
 $func = function ($order_id) {
 	$control = (string) (int) $order_id;
 	if ($order_id != $control) {
-		\factory::call()->getPage()->page_danger('Настройте пути');
+		\factory::call()->getPage()->page_danger("Неправильный ID заказа {$order_id}");
 		exit;
 	}
-	$customer_item = \factory::call()->getUser();
 	$orders_item = \factory::call()->getObj('shop\orders')->getByKey((int) $order_id);
-	if (!$orders_item || $orders_item->CUSTOMER_ID != $customer_item->ID) {
-		\factory::call()->getPage()->page_404();
+	if (!$orders_item) {
+		\factory::call()->getPage()->page_warning("Заказ не найден: {$order_id}");
 		exit;
 	}
 //	$orders_item->calculationOrdersAmount();
