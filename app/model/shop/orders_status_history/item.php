@@ -1,9 +1,9 @@
 <?php
-namespace app\model\shop\payment;
+namespace app\model\shop\orders_status_history;
 
 /**
-* @author Петухов Леонид <l.petuhov@okonti.ru>
-*/
+ * @author Петухов Леонид <l.petuhov@okonti.ru>
+ */
 class item extends \app\model\_added\item {
 
 
@@ -16,21 +16,20 @@ class item extends \app\model\_added\item {
 
 
 
+
 	/** Настройки объекта */
 	protected function setting() {
 
 		# Ключевое поле объекта
-		$this->set_column_id('id_payment');   # Ключевое поле
+		$this->set_column_id('id_orders_status_history');   # Ключевое поле
 
 		# Основные свойства объекта (соответствуют столбцам таблицы)
 		$column = [
-			'id_payment'        => 'ID',            # ID записи
-			'orders_id'         => 'ORDERS_ID',     # ID заказа
-			'payment_type'      => 'TYPE_ID',       # Тип оплаты: 1 - наличными, 2 - картой...
-			'payment_amount'    => 'AMOUNT',        # Сумма оплаты
-			'payment_comment'   => 'COMMENT',       # Комментарий
-			'payment_created'   => 'CREATED',       # Дата создания
-			'payment_deleted'   => 'DELETED',       # Дата удаления
+			'id_orders_status_history'        => 'ID',          # ID записи
+			'orders_id'                       => 'ORDERS_ID',   # ID заказа
+			'orders_status_id'                => 'STATUS_ID',   # ID статуса заказа
+			'orders_status_history_comment'   => 'COMMENT',     # Комментарий
+			'orders_status_history_created'   => 'CREATED',     # Дата создания
 		];
 
 		foreach ($column as $k => $v) {
@@ -47,13 +46,18 @@ class item extends \app\model\_added\item {
 
 		# Генерируемые свойства объекта
 		$function = [
-			'TYPE_TITLE'     => function() {
-				$arr = $this->obj_data->settingsType();
-				return isset($arr[$this->TYPE_ID])
-						? $arr[$this->TYPE_ID]['title']
+			'STATUS_TITLE'     => function() {
+				$arr = \factory::call()->getObj('shop\orders')->settingsStatus();
+				return isset($arr[$this->STATUS_ID])
+						? $arr[$this->STATUS_ID]['title']
 						: 'Не определено';
 			},
-		];
+			'STATUS_COLOR'     => function() {
+				$arr = \factory::call()->getObj('shop\orders')->settingsStatus();
+				return isset($arr[$this->STATUS_ID])
+						? $arr[$this->STATUS_ID]['color']
+						: 'Не определено';
+			},		];
 		foreach ($function as $k => $v) {
 			$this->set_gen_data($k, $v);
 		}/**/
@@ -93,21 +97,16 @@ class item extends \app\model\_added\item {
 
 
 
-	/** Обновляет данные из заказа */
+	/** Устанавливает настройки заказа */
 	public function setDataOrders($orders_item) {
-		if (!$orders_item->ID) {
-			throw new \Exception("Не определён ID заказа", 1);
-
-		}
 		$this->setProp('ORDERS_ID',   $orders_item->ID);
+		$this->setProp('STATUS_ID',   $orders_item->STATUS_ID);
 	}
 
 
-
-	/** Обновляет данные из заказа */
-	public function setTypeAndAmount($type_id, $amount) {
-		$this->setProp('TYPE_ID',   $type_id);
-		$this->setProp('AMOUNT',    $amount);
+	/** Устанавливает комментарий */
+	public function setComment($comment) {
+		$this->setProp('COMMENT',   $comment);
 	}
 
 

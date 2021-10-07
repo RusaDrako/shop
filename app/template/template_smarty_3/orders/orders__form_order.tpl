@@ -37,7 +37,7 @@
 <div class="row">
 	<div class="col-3 p-1">
 		<div class="form-floating">
-			<select class="form-control" id="floatingDelivery" name="delivery_type" placeholder="Доставка">
+			<select class="form-select" id="floatingDelivery" name="delivery_type" placeholder="Доставка">
 				{foreach from=$order_delivery_array item=v key=k}
 				<option value="{$k}">{$v.title}</option>
 				{/foreach}

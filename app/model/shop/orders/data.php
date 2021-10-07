@@ -18,13 +18,13 @@ class data extends \RD_Obj_Data {
 	private $_arr_status = [
 		1 => ['title' => 'Новый',              'color' => 'bg-warning text-dark'],
 		2 => ['title' => 'Оплачен',            'color' => 'bg-danger'],
-		3 => ['title' => 'В обработке',        'color' => 'bg-info text-dark'],
-		4 => ['title' => 'В сборке',           'color' => 'bg-primary'],
-		5 => ['title' => 'Ожидает отправки',   'color' => 'bg-light text-dark border border-dark'],
-		6 => ['title' => 'Отправлен',          'color' => 'bg-dark'],
+		3 => ['title' => 'Обрабатывается',     'color' => 'bg-info text-dark'],
+		4 => ['title' => 'Собирается',         'color' => 'bg-primary'],
+		5 => ['title' => 'Готов к отправке',   'color' => 'bg-success text-warning'],
+		6 => ['title' => 'Отправлен',          'color' => 'bg-success'],
 		7 => ['title' => 'Доставлен',          'color' => 'bg-secondary'],
-		8 => ['title' => 'Закрыт',             'color' => 'bg-success'],
-		9 => ['title' => 'Отменён',            'color' => 'bg-success text-warning'],
+		8 => ['title' => 'Выполнен',           'color' => 'bg-light text-dark border border-dark'],
+		9 => ['title' => 'Отменён',            'color' => 'bg-dark'],
 	];
 
 	/** Возвращает массив настроек для типов доставки */

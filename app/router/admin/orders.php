@@ -4,7 +4,7 @@ $module = "/{$group}/" . basename(__FILE__, '.php');
 
 
 
-/** Вывод редактирования разделов */
+/** Вывод списка заказов (+ поиск) */
 $func = function () {
 //print_info(\request::call());
 
@@ -23,7 +23,114 @@ $func = function () {
 	view_shop::call()->variable('list',           $orders_list);
 	view_shop::call()->variable('status_arr',     \factory::call()->getObj('shop\orders')->settingsStatus());
 	view_shop::call()->variable('delivery_arr',   \factory::call()->getObj('shop\orders')->settingsDeliveryType());
-	view_shop::call()->page('admin/orders/orders__common');
+	view_shop::call()->page('admin/orders/orders__common_list');
 };
 # Заглавная страница
-router::call()->any("/{$module}/", $func);
+router::call()->any("{$module}/", $func);
+
+
+
+
+
+/** Смена статуса */
+$func = function () {
+//	print_info(\request::call());
+
+	$order_id    = \request::call()->get('order_id');
+	$status_id   = \request::call()->get('status_id');
+	$comment     = \request::call()->get('comment');
+
+	$orders_item = \factory::call()->getObj('shop\orders')->getByKey($order_id);
+	if (!$orders_item) {
+		\factory::call()->getPage()->page_danger('Заказ не найден.');
+		exit;
+	}
+
+	if (!$status_id) {
+		\factory::call()->getPage()->page_danger('Статус не указан.');
+		exit;
+	}
+
+	$orders_status_history_item = $orders_item->setOrdersStatus($status_id, $comment);
+	if ($orders_status_history_item) {
+		$orders_item->save();
+		$orders_status_history_item->save();
+	}
+
+	header('Location:'.$_SERVER['HTTP_REFERER']);
+	exit;
+};
+# Заглавная страница
+router::call()->any("{$module}/status/", $func);
+
+
+
+
+
+
+
+
+
+
+/** Добавление оплаты */
+$func = function () {
+	$order_id     = \request::call()->get('order_id');
+	$payment_id   = \request::call()->get('payment_id');
+	$amount       = \request::call()->get('amount');
+
+	$orders_item = \factory::call()->getObj('shop\orders')->getByKey($order_id);
+	if (!$orders_item) {
+		\factory::call()->getPage()->page_danger('Заказ не найден.');
+		exit;
+	}
+
+	if (!$payment_id) {
+		\factory::call()->getPage()->page_danger('Тип оплаты не указан.');
+		exit;
+	}
+
+	if (!$payamountment_id) {
+		\factory::call()->getPage()->page_danger('Сумма оплаты не указана.');
+		exit;
+	}
+
+	$payment_item = $orders_item->createAssociatedPayment();
+	$payment_item->setTypeAndAmount($payment_id, $amount);
+	$payment_item->save();
+
+	header('Location:'.$_SERVER['HTTP_REFERER']);
+	exit;
+};
+# Заглавная страница
+router::call()->any("{$module}/status/", $func);
+
+
+
+
+
+/** Вывод подробностей по заказу */
+$func = function ($order_id) {
+	$control = (string) (int) $order_id;
+	if ($order_id != $control) {
+		\factory::call()->getPage()->page_danger('Настройте пути');
+		exit;
+	}
+	$customer_item = \factory::call()->getUser();
+	$orders_item = \factory::call()->getObj('shop\orders')->getByKey((int) $order_id);
+	if (!$orders_item || $orders_item->CUSTOMER_ID != $customer_item->ID) {
+		\factory::call()->getPage()->page_404();
+		exit;
+	}
+//	$orders_item->calculationOrdersAmount();
+	view_shop::call()->variable('card',                         $orders_item);
+	view_shop::call()->variable('item_list',                    $orders_item->getAssociatedItemList());
+	view_shop::call()->variable('payment_list',                 $orders_item->getAssociatedPaymentList());
+	view_shop::call()->variable('orders_status_history_list',   $orders_item->getAssociatedOrdersStatusHistoryList());
+	view_shop::call()->variable('status_arr',                   \factory::call()->getObj('shop\orders')->settingsStatus());
+	view_shop::call()->variable('payment_arr',                  \factory::call()->getObj('shop\payment')->settingsType());
+
+	view_shop::call()->page('admin/orders/orders__common_card');
+	exit;
+};
+# Заглавная страница
+router::call()->any("{$module}/{}/", $func);
