@@ -26,8 +26,8 @@ class item extends \app\model\_added\item {
 		$column = [
 			'id_orders'                    => 'ID',                 # ID записи
 			'customer_id'                  => 'CUSTOMER_ID',        # ID клиента
-			'orders_status'                => 'STATUS',             # Статус
-			'orders_payment'               => 'PAYMENT',            # Отметка об оплате
+			'orders_status_id'             => 'STATUS_ID',          # ID статуса
+			'orders_paymented'             => 'PAYMENTED',          # Отметка об оплате
 			'orders_amount'                => 'AMOUNT',             # Стоимость
 			'orders_customer_surname'      => 'SURNAME',            # Фамилия
 			'orders_customer_name'         => 'NAME',               # Имя
@@ -57,14 +57,26 @@ class item extends \app\model\_added\item {
 		$function = [
 			'STATUS_TITLE'     => function() {
 				$arr = $this->obj_data->settingsStatus();
-				return isset($arr[$this->STATUS])
-						? $arr[$this->STATUS]['title']
+				return isset($arr[$this->STATUS_ID])
+						? $arr[$this->STATUS_ID]['title']
+						: 'Не определено';
+			},
+			'STATUS_COLOR'     => function() {
+				$arr = $this->obj_data->settingsStatus();
+				return isset($arr[$this->STATUS_ID])
+						? $arr[$this->STATUS_ID]['color']
 						: 'Не определено';
 			},
 			'DELIVERY_TYPE_TITLE'     => function() {
 				$arr = $this->obj_data->settingsDeliveryType();
 				return isset($arr[$this->DELIVERY_TYPE])
 						? $arr[$this->DELIVERY_TYPE]['title']
+						: 'Не определено';
+			},
+			'DELIVERY_ICON'     => function() {
+				$arr = $this->obj_data->settingsDeliveryType();
+				return isset($arr[$this->DELIVERY_TYPE])
+						? $arr[$this->DELIVERY_TYPE]['icon']
 						: 'Не определено';
 			},
 		];
@@ -107,10 +119,21 @@ class item extends \app\model\_added\item {
 
 
 
-	/** Устанавливает настройки пользователя и статуса */
-	public function setDataCustomer($customer_item, $status) {
+	/** Устанавливает настройки пользователя */
+	public function setDataCustomer($customer_item) {
 		$this->setProp('CUSTOMER_ID',   $customer_item->ID);
-		$this->setProp('STATUS',        $status);
+	}
+
+
+
+	/** Устанавливает статус заказа */
+	public function setOrdersStatus($status_id, $comment = null) {
+		if ($status_id == $this->STATUS_ID) { return; }
+		$this->setProp('STATUS_ID',     $status_id);
+
+		$orders_status_history_item = $this->createAssociatedOrdersStatusHistory();
+		$orders_status_history_item->setComment($comment);
+		return $orders_status_history_item;
 	}
 
 
@@ -126,8 +149,10 @@ class item extends \app\model\_added\item {
 
 	/** Устанавливает метку об оплате */
 	public function setOrdersPayment() {
-		$this->setProp('PAYMENT',   date('Y-m-d H:i:s'));
+		$this->setProp('PAYMENTED',   date('Y-m-d H:i:s'));
 	}
+
+
 
 
 
@@ -140,6 +165,8 @@ class item extends \app\model\_added\item {
 		}
 		return $this->_customer_item;
 	}
+
+
 
 
 
@@ -180,6 +207,8 @@ class item extends \app\model\_added\item {
 
 
 
+
+
 	private $_payment_list = false;
 
 	/** Возвращает связанный список оплат */
@@ -213,6 +242,29 @@ class item extends \app\model\_added\item {
 			$amount = $amount + $v->AMOUNT;
 		}
 		return $amount;
+	}
+
+
+
+
+
+	private $_orders_status_history_list = false;
+
+	/** Возвращает связанный список истории статусов */
+	public function getAssociatedOrdersStatusHistoryList() {
+		if ($this->_orders_status_history_list === false) {
+			$this->_orders_status_history_list = \factory::call()->getObj('shop\orders_status_history')->getOrdersStatusHistoryListOrder((int)$this->ID);
+		}
+		return $this->_orders_status_history_list;
+	}
+
+
+
+	/** Возвращает новую историю статуса */
+	public function createAssociatedOrdersStatusHistory() {
+		$orders_status_history_item = \factory::call()->getObj('shop\orders_status_history')->newItem();
+		$orders_status_history_item->setDataOrders($this);
+		return $orders_status_history_item;
 	}
 
 

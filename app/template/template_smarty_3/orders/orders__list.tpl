@@ -12,7 +12,7 @@
 			{$v->AMOUNT|currency}
 		</div>
 		<div class="col-2 text-center">
-			<span class="badge bg-danger">{$v->STATUS_TITLE}</span>
+			<span class="badge {$v->STATUS_COLOR}">{$v->STATUS_TITLE}</span>
 		</div>
 		<div class="col-2">
 			<a href="/orders/{$v->ID}">Подробнее</a>

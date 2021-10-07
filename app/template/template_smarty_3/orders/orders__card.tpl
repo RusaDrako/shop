@@ -17,7 +17,7 @@
 		<strong>Статус:</strong>
 	</div>
 	<div class="col-3 py-1">
-		<span class="badge bg-danger">{$card->STATUS_TITLE}</span>
+		<span class="badge {$card->STATUS_COLOR}">{$card->STATUS_TITLE}</span>
 	</div>
 </div>
 <div class="row mb-2">

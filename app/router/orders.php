@@ -85,7 +85,10 @@ $func = function () {
 	}
 	# Расчитываем стоймость заказа
 	$orders_item->calculationOrdersAmount();
+	# Задаём статус и получаем объект истории статуса
+	$orders_status_history_item = $orders_item->setOrdersStatus(1);
 	$orders_item->save();
+	$orders_status_history_item->save();
 	# Переходим на страницу заказа
 	header("Location: /orders/{$orders_item->ID}/");
 	exit;

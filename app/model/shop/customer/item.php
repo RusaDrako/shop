@@ -90,7 +90,7 @@ class item extends \app\model\_added\item {
 	/** Создаёт связанный заказ */
 	public function createAssociatedOrders() {
 		$orders_item = \factory::call()->getObj('shop\orders')->newItem();
-		$orders_item->setDataCustomer($this, 1);
+		$orders_item->setDataCustomer($this);
 		return $orders_item;
 	}
 
