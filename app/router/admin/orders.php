@@ -89,7 +89,7 @@ $func = function () {
 		exit;
 	}
 
-	if (!$payamountment_id) {
+	if (!$amount) {
 		\factory::call()->getPage()->page_danger('Сумма оплаты не указана.');
 		exit;
 	}
@@ -98,11 +98,13 @@ $func = function () {
 	$payment_item->setTypeAndAmount($payment_id, $amount);
 	$payment_item->save();
 
+	$orders_item->controlPaymentAmount();
+
 	header('Location:'.$_SERVER['HTTP_REFERER']);
 	exit;
 };
 # Заглавная страница
-router::call()->any("{$module}/status/", $func);
+router::call()->any("{$module}/payment/", $func);
 
 
 

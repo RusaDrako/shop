@@ -246,6 +246,17 @@ class item extends \app\model\_added\item {
 
 
 
+	/** Контроль оплаты заказа */
+	public function controlPaymentAmount() {
+		if ($this->PAYMENTED) { return; }
+		$amount = $this->calculationPaymentAmount();
+		if ($amount < $this->AMOUNT) {
+			$this->setProp('PAYMENTED', $amount);
+		}
+	}
+
+
+
 
 
 	private $_orders_status_history_list = false;
