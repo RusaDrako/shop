@@ -51,11 +51,8 @@ $func = function () {
 		exit;
 	}
 
-	$orders_status_history_item = $orders_item->setOrdersStatus($status_id, $comment);
-	if ($orders_status_history_item) {
-		$orders_item->save();
-		$orders_status_history_item->save();
-	}
+	$orders_item->setOrdersStatus($status_id, $comment);
+	$orders_item->save();
 
 	header('Location:'.$_SERVER['HTTP_REFERER']);
 	exit;

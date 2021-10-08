@@ -111,9 +111,12 @@ class item extends \app\model\_added\item {
 
 
 
-	/* * Сохранение записи * /
+	/* * Сохранение записи */
 	public function save() {
-		$this->setProp('UPDATED',   date('Y-m-d H:i:s'));
+		# Если есть объект истории статусов
+		if ($this->_orders_status_history_item) {
+			$this->_orders_status_history_item->save();
+		}
 		parent::save();
 	}
 
@@ -126,14 +129,16 @@ class item extends \app\model\_added\item {
 
 
 
+	private $_orders_status_history_item = NULL;
+
 	/** Устанавливает статус заказа */
 	public function setOrdersStatus($status_id, $comment = null) {
 		if ($status_id == $this->STATUS_ID) { return; }
 		$this->setProp('STATUS_ID',     $status_id);
-
-		$orders_status_history_item = $this->createAssociatedOrdersStatusHistory();
-		$orders_status_history_item->setComment($comment);
-		return $orders_status_history_item;
+		# Формируем дополнительно объект истории статусов заказа
+		$this->_orders_status_history_item = $this->createAssociatedOrdersStatusHistory();
+		$this->_orders_status_history_item->setComment($comment);
+		return $this->_orders_status_history_item;
 	}
 
 
@@ -236,8 +241,10 @@ class item extends \app\model\_added\item {
 
 	/** Расчитывает сумму заказа */
 	public function calculationPaymentAmount() {
+		# Получаем все оплаты по заказу
 		$payment_list = $this->getAssociatedPaymentList();
 		$amount = 0;
+		# Считаем общую сумму
 		foreach ($payment_list->iterator() as $k => $v) {
 			$amount = $amount + $v->AMOUNT;
 		}
@@ -248,10 +255,13 @@ class item extends \app\model\_added\item {
 
 	/** Контроль оплаты заказа */
 	public function controlPaymentAmount() {
+		# Если уже установлена даты полной оплаты
 		if ($this->PAYMENTED) { return; }
-		$amount = $this->calculationPaymentAmount();
-		if ($amount < $this->AMOUNT) {
-			$this->setProp('PAYMENTED', $amount);
+		# Подсчитываем все оплаты заказа
+		$payment_amount = $this->calculationPaymentAmount();
+		# Если сумма оплат меньше суммы заказа
+		if ($payment_amount < $this->AMOUNT) {
+			$this->setProp('PAYMENTED', date('Y-m-d H:i:s'));
 		}
 	}
 
@@ -261,7 +271,7 @@ class item extends \app\model\_added\item {
 
 	private $_orders_status_history_list = false;
 
-	/** Возвращает связанный список истории статусов */
+	/** Возвращает связанный список истории статусов заказа */
 	public function getAssociatedOrdersStatusHistoryList() {
 		if ($this->_orders_status_history_list === false) {
 			$this->_orders_status_history_list = \factory::call()->getObj('shop\orders_status_history')->getOrdersStatusHistoryListOrder((int)$this->ID);
@@ -271,7 +281,7 @@ class item extends \app\model\_added\item {
 
 
 
-	/** Возвращает новую историю статуса */
+	/** Возвращает новый объект историю статусов заказа */
 	public function createAssociatedOrdersStatusHistory() {
 		$orders_status_history_item = \factory::call()->getObj('shop\orders_status_history')->newItem();
 		$orders_status_history_item->setDataOrders($this);
