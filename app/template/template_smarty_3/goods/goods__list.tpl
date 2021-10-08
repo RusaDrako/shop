@@ -8,7 +8,7 @@
 				<div class="row p-0 mx-0 my-2">
 					<div class="col p-0 text-center">
 						<a href="/goods/{$v->ID}" title="{$v->TITLE}">
-							<img class="border border" src="{$v->IMG}" style="max-width: 100%; max-height: 200px;"/>
+							<img class="border border" src="{$v->IMG_URL}" style="max-width: 100%; max-height: 200px;"/>
 						</a>
 					</div>
 				</div>

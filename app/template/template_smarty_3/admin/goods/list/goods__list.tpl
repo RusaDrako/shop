@@ -5,6 +5,8 @@
 	<div class="col-1">
 		#
 	</div>
+	<div class="col-1">
+	</div>
 	<div class="col">
 		Наименование
 	</div>
@@ -26,6 +28,11 @@
 	<div class="row border-bottom p-0 py-2">
 		<div class="col-1">
 			{$v->ID}
+		</div>
+		<div class="col-1 text-center border">
+			<a href="/admin/goods/{$v->ID}">
+				<img src="{$v->IMG_URL}" style="max-width:100%;max-height:50px;">
+			</a>
 		</div>
 		<div class="col">
 			<a href="/admin/goods/{$v->ID}">{$v->TITLE}</a>

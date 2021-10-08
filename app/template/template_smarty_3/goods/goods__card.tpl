@@ -31,8 +31,10 @@
 </div>
 
 <div class="row p-2">
-	<div class="col-5 p-0 border text-center" style="background: #fff">
-		<img class="border border-warning" src="{$card->IMG}" style="max-width: 100%; max-height: 100%;"/>
+	<div class="col-5 p-0 text-center" style="background: #fff">
+		<a href="{$card->IMG_URL}" target="_blank">
+			<img class="border border-warning" src="{$card->IMG_URL}" style="max-width:100%;max-height:300px;">
+		</a>
 	</div>
 	<div class="col">
 		{$card->DESCRIPTION}

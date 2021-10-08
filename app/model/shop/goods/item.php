@@ -28,6 +28,7 @@ class item extends \app\model\_added\item {
 			'section_id'                 => 'SECTION_ID',           # ID раздела
 			'goods_guid'                 => 'GUID',                 # GUID товара для синхронизации с внешними системами
 			'goods_title'                => 'TITLE',                # Наименование
+			'goods_img'                  => 'IMAGE',                # Картинка
 			'goods_description'          => 'DESCRIPTION',          # Описание
 			'goods_price'                => 'PRICE',                # Стоимость
 			'goods_discount'             => 'DISCOUNT',          # Скидка
@@ -49,7 +50,19 @@ class item extends \app\model\_added\item {
 
 		# Генерируемые свойства объекта
 		$function = [
-			'IMG'         => function() {return '/img/box.png';},
+			'IMG_FOLDER'      => function() { return '/img/goods/'; },
+			'IMG_URL'         => function() {
+				# Если есть загруженный файл
+				if ($this->IMAGE) {
+					$file_url = "{$this->IMG_FOLDER}{$this->IMAGE}";
+					$file_link = \registry::call()->get('FOLDER_ROOT') . "app/public{$file_url}";
+					# Если файл существует
+					if (\file_exists($file_link)) {
+						return $file_url;
+					}
+				}
+				return  '/img/box.png';
+			},
 			'AVAILABLE'   => function() {return $this->controlQuantityGoods(1);},
 			'COST'        => function() {
 				return $this->DISCOUNT > 0 && $this->DISCOUNT < 100
@@ -92,6 +105,27 @@ class item extends \app\model\_added\item {
 	public function save() {
 		$this->setProp('UPDATED',   date('Y-m-d H:i:s'));
 		parent::save();
+	}
+
+
+
+	/** Устанавливает количество доступного товара */
+	public function uploadFile($temp_file) {
+		$file_name = "{$this->ID}.jpg";
+		$file_url = "{$this->IMG_FOLDER}{$file_name}";
+		$file_new = \registry::call()->get('FOLDER_ROOT') . "app/public{$file_url}";
+		rename($temp_file, $file_new);
+		$this->setProp('IMAGE', $file_name);
+	}
+
+
+
+	/** Устанавливает количество доступного товара */
+	public function setGoodsAvailableQuantity($quantity, $unlimited = null) {
+		if ($unlimited) {
+			$quantity = -1;
+		}
+		$this->setProp('AVAILABLE_QUANTITY', $quantity);
 	}
 
 

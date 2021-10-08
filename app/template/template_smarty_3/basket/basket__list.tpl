@@ -18,7 +18,7 @@
 			</div>
 			<div class="col-1 px-0 py-1">
 				<a href="/goods/{$goods_item->ID}">
-					<img class="border border-warning" src="{$goods_item->IMG}" style="max-width: 100%; max-height: 60px;"/>
+					<img class="border border-warning" src="{$goods_item->IMG_URL}" style="max-width: 100%; max-height: 60px;"/>
 				</a>
 			</div>
 			<div class="col py-2">
@@ -64,7 +64,7 @@
 	<br><br>
 	<h4>Дополнительная информация</h4>
 	<br>
-	{include file="orders/orders__form_order.tpl" order_delivery_array=$order_delivery_array}
+	{include file="basket/orders__form_order.tpl" order_delivery_array=$order_delivery_array}
 	<hr>
 	<div class="row">
 		<div class="col-3 offset-9">
